@@ -61,9 +61,7 @@ describe('UI tests', () => {
     let element: HTMLElement = fixture.debugElement.nativeElement;
     let rname  = element.querySelector("input.rnamein");
     let iname  = element.querySelector("input.inamein");
-
     let qname  = element.querySelector("input.qnamein");
-
     let insname  = element.querySelector("textarea.insnamein");
 
 
@@ -91,18 +89,16 @@ describe('UI tests', () => {
     expect(qn.innerHTML).toBe("9");
     expect(ins.innerHTML).toBe("Peel it. shake and mix it and enjoy");
 
-    let element: HTMLElement = fixture.debugElement.nativeElement;
 
-    let button = element.querySelector("td.rname");
-    console.log(button);
-    button.dispatchEvent(new Event("click"));
+    let button2 = element.querySelector("td.rname");
+    button2.dispatchEvent(new Event("click"));
     fixture.detectChanges();
     let del = element.querySelector("input.delete");
     del.dispatchEvent(new Event("click"));
     fixture.detectChanges();
 
-    let output = element.querySelector("td.name");
-    if(output == null){
+    let output2 = element.querySelector("td.name");
+    if(output2 == null){
       expect(true).toBe(true);
     }
 
