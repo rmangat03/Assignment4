@@ -16,9 +16,11 @@ export class ShopListCompComponent implements OnInit {
 
   ngOnInit() {
     this.fridge = new Fridge();
+    this.fridge = null;
   }
 
   fetchList(){
+
     this.list = this.fridge.checkRecipe(new recipeManagement().set());
   }
 
