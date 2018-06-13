@@ -8,23 +8,14 @@ export class Fridge{
     * @param item ACCEPT ITEMS TO BE ADDED TO THE FRIDGE
     */
     add(item: Item){
-        if(this.CONTENTS.length === 0){
-            this.CONTENTS.push(item);
-        }else{
         for(let i of this.CONTENTS){
             if(i.name === item.name){
                 i.quantity+=item.quantity;
+                return;
             }
 
         }
-
-        for(let i of this.CONTENTS){
-          if(i.name !== item.name){
         this.CONTENTS.push(item);
-      }
-      }
-
-        }
 
     }
 

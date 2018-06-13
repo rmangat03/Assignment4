@@ -1,0 +1,13 @@
+<table border="9">
+  <tr>
+    <th>Inventory</th>
+    <th>Shopping List</th>
+  </tr>
+  <tr *ngFor="let a of list; let i = index">
+    <td><ul>
+      <li *ngFor="let q of a">{{i}}{{q}}</li>
+    </ul></td>
+  </tr>
+</table>
+
+<input type="button" name="" value="Show Inventory and Shopping Lists" (click)= "fetchRecipe()">

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Recipe} from "../Recipe.class";
-import {Item} from "../Item.class"
+import {Item} from "../Item.class";
+import { recipeManagement } from '../recipeManagement.service';
+
 @Component({
   selector: 'recipe-comp',
   templateUrl: './recipe-comp.component.html',
@@ -18,6 +20,7 @@ export class RecipeCompComponent implements OnInit {
   userSelectedIng: string;
   inst: string = "";
   letter = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+  recipeServe: recipeManagement;
 
   constructor() { }
 
@@ -27,6 +30,7 @@ export class RecipeCompComponent implements OnInit {
     // recipe1.addItem(new Item("mango",9));
     // recipe1.addInstruction("Peel it. shake and mix it and enjoy");
     // this.userRecipeObj.push(recipe1);
+    this.recipeServe = new recipeManagement();
   }
 
   addRecipe(){
@@ -72,6 +76,12 @@ export class RecipeCompComponent implements OnInit {
 
   selectRecipe(selected){
     this.selectedRecipe = selected;
+
+    for(let recipe of this.userRecipeObj){
+      if(recipe.NAME === selected){
+        this.recipeServe.fetchSet(recipe);
+      }
+    }
   }
 
   selectIng(recipe){

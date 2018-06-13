@@ -10,10 +10,6 @@ export class Recipe{
      * @param item ITEM FOR RECIPE TO ADD
      */
     addItem(item: Item){
-      if(this.INGRIDENTS.length === 0){
-        this.INGRIDENTS.push(item);
-        return;
-      }
       for(let i of this.INGRIDENTS){
         if(i.name === item.name){
         i.quantity+=item.quantity;
