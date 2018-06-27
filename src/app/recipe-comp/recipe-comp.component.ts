@@ -6,8 +6,7 @@ import { recipeManagement } from '../recipeManagement.service';
 @Component({
   selector: 'recipe-comp',
   templateUrl: './recipe-comp.component.html',
-  styleUrls: ['./recipe-comp.component.css'],
-  providers: [recipeManagement]
+  styleUrls: ['./recipe-comp.component.css']
 })
 export class RecipeCompComponent implements OnInit {
   userRecipeObj: Recipe[] = [];
@@ -31,7 +30,6 @@ export class RecipeCompComponent implements OnInit {
     // recipe1.addItem(new Item("mango",9));
     // recipe1.addInstruction("Peel it. shake and mix it and enjoy");
     // this.userRecipeObj.push(recipe1);
-    this.recipeServe = new recipeManagement();
   }
 
   addRecipe(){
@@ -52,6 +50,7 @@ export class RecipeCompComponent implements OnInit {
     this.selectedIng = null;
     this.selectedRecipe = null;
     this.selectedInstruction = null;
+
 
 
 

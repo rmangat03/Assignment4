@@ -4,15 +4,15 @@ import { Recipe } from './Recipe.class';
 @Injectable()
 export class recipeManagement{
 
-recipe: Recipe[] = [];
-selectedRecipe = null;
+public recipe: Array<Recipe>;
+public selectedRecipe = null;
 
 addRecipe(recipe){
   this.recipe = recipe;
+
 }
 selectRecipe(recipe){
   this.selectedRecipe = recipe;
-  alert(this.selectedRecipe);
 }
 
 
