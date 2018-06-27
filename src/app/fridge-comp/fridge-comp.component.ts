@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Fridge } from '../Fridge.class';
 import { Item } from '../Item.class';
-
+import { recipeManagement } from '../recipeManagement.service';
 @Component({
   selector: 'app-fridge-comp',
   templateUrl: './fridge-comp.component.html',
@@ -15,7 +15,7 @@ export class FridgeCompComponent implements OnInit {
   fridgeItems: Array<Item> = new Array<Item>();
   letter = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
 
-  constructor() { }
+  constructor(private service:recipeManagement) { }
 
   ngOnInit() {
     this.fridge = new Fridge();

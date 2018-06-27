@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Fridge } from '../Fridge.class';
 import { recipeManagement } from '../recipeManagement.service';
+import { Recipe } from '../Recipe.class';
+import { Item } from '../Item.class';
 
 @Component({
   selector: 'app-shop-list-comp',
   templateUrl: './shop-list-comp.component.html',
-  styleUrls: ['./shop-list-comp.component.css']
+  styleUrls: ['./shop-list-comp.component.css'],
+  providers: [recipeManagement]
 })
 export class ShopListCompComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: recipeManagement) { }
 
     fridge: Fridge;
     list: string[][];
@@ -19,9 +22,6 @@ export class ShopListCompComponent implements OnInit {
     this.fridge = null;
   }
 
-  fetchList(){
-
-    this.list = this.fridge.checkRecipe(new recipeManagement().set());
-  }
+  fetchRecipe(){
 
 }

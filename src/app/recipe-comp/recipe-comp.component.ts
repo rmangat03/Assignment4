@@ -6,7 +6,8 @@ import { recipeManagement } from '../recipeManagement.service';
 @Component({
   selector: 'recipe-comp',
   templateUrl: './recipe-comp.component.html',
-  styleUrls: ['./recipe-comp.component.css']
+  styleUrls: ['./recipe-comp.component.css'],
+  providers: [recipeManagement]
 })
 export class RecipeCompComponent implements OnInit {
   userRecipeObj: Recipe[] = [];
@@ -22,7 +23,7 @@ export class RecipeCompComponent implements OnInit {
   letter = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
   recipeServe: recipeManagement;
 
-  constructor() { }
+  constructor(private service: recipeManagement) { }
 
   ngOnInit() {
     // let recipe1 =new Recipe();
@@ -42,6 +43,7 @@ export class RecipeCompComponent implements OnInit {
 
       recipe.addItem(new Item(this.addOrDeleteIng, this.quantityIng));
 
+
       return;
   }
   }
@@ -60,7 +62,7 @@ export class RecipeCompComponent implements OnInit {
     this.userRecipeObj.push(recipeO);
 
   }
-
+    this.service.addRecipe(this.userRecipeObj);
   }
 
   deleteRecipe(){
@@ -76,12 +78,13 @@ export class RecipeCompComponent implements OnInit {
 
   selectRecipe(selected){
     this.selectedRecipe = selected;
+    this.service.selectRecipe(this.selectedRecipe);
 
-    for(let recipe of this.userRecipeObj){
-      if(recipe.NAME === selected){
-        this.recipeServe.fetchSet(recipe);
-      }
-    }
+    // for(let recipe of this.userRecipeObj){
+    //   if(recipe.NAME === selected){
+    //     this.recipeServe.fetchSet(recipe);
+    //   }
+    // }
   }
 
   selectIng(recipe){
