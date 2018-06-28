@@ -72,18 +72,18 @@ export class RecipeCompComponent implements OnInit {
       }
     }
     }
+    this.service.addRecipe(this.userRecipeObj);
+
   }
 
 
   selectRecipe(selected){
     this.selectedRecipe = selected;
-    this.service.selectRecipe(this.selectedRecipe);
-
-    // for(let recipe of this.userRecipeObj){
-    //   if(recipe.NAME === selected){
-    //     this.recipeServe.fetchSet(recipe);
-    //   }
-    // }
+    for(let recipe of this.userRecipeObj){
+      if(recipe.NAME === selected){
+        this.service.selectRecipe(recipe);
+      }
+    }
   }
 
   selectIng(recipe){
@@ -100,17 +100,18 @@ export class RecipeCompComponent implements OnInit {
 
 
   editRecipe(){
-
+    let check = false;
     for(let recipe of this.userRecipeObj){
       if(recipe.NAME === this.selectedRecipe && this.userRecipeNameInput.match(this.letter) !== null){
         for(let recipeCheck of this.userRecipeObj){
           if(recipeCheck.NAME === this.userRecipeNameInput){
-            alert("Recipe already there");
-            return;
+            check = true;
           }
       }
-      recipe.NAME = this.userRecipeNameInput;
-
+      if(!check){
+        recipe.NAME = this.userRecipeNameInput;
+        check = false;
+      }
     }
       if(recipe.INSTRUCTIONS[0] === this.selectedInstruction && this.inst != ""){
         recipe.INSTRUCTIONS[0] = this.inst;
@@ -129,6 +130,7 @@ export class RecipeCompComponent implements OnInit {
     this.selectedIng = null;
     this.selectedRecipe = null;
     this.selectedInstruction = null;
+    this.service.addRecipe(this.userRecipeObj);
 
 
 }

@@ -27,11 +27,14 @@ export class FridgeCompComponent implements OnInit {
     this.fridge.add(new Item(this.itemToAddDelete, this.quantityToAddDelete));
     this.showFridgeItems();
   }
+    this.service.addItemsToFridge(this.fridgeItems);
   }
 
   deleteItem(){
     this.fridge.remove(new Item(this.itemToAddDelete, this.quantityToAddDelete))
     this.showFridgeItems();
+    this.service.addItemsToFridge(this.fridgeItems);
+
   }
 
   showFridgeItems(){

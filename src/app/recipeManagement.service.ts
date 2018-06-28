@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './Recipe.class';
+import { Item } from './Item.class';
+import { Fridge } from './Fridge.class';
+
 
 @Injectable()
 export class recipeManagement{
 
 public recipe: Array<Recipe>;
-public selectedRecipe = null;
+selectedRecipe: Recipe = null;
+fridgeItems: Array<Item>;
+list: string[][];
+fridge: Fridge = new Fridge();
 
 addRecipe(recipe){
   this.recipe = recipe;
@@ -14,17 +20,15 @@ addRecipe(recipe){
 selectRecipe(recipe){
   this.selectedRecipe = recipe;
 }
-
-
-
-
-
-/*fetchSet(recipe){
-  this.recipe = recipe;
+addItemsToFridge(item){
+  this.fridgeItems = item;
+  this.fridge.CONTENTS = this.fridgeItems;
 }
-
-
-set(): Recipe{
-  return this.recipe;
-}*/
+checkRecipe(): string[][]{
+  if(this.selectedRecipe == null){
+    alert("Please select one recipe");
+    return;
+  }
+  return this.fridge.checkRecipe(this.selectedRecipe)
+}
 }

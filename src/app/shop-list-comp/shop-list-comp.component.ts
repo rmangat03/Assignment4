@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Fridge } from '../Fridge.class';
 import { recipeManagement } from '../recipeManagement.service';
 import { Recipe } from '../Recipe.class';
 
@@ -12,17 +11,18 @@ export class ShopListCompComponent implements OnInit {
 
   constructor(public service: recipeManagement) { }
 
-    fridge: Fridge;
-    list: string[][];
+    list: string[][] = [[],[]];
 
   ngOnInit() {
-    this.fridge = new Fridge();
-    this.fridge = null;
   }
 
   fetchRecipe(){
-    alert("IN");
-    alert(this.service.recipe[0].NAME);
-
+    this.list = this.service.checkRecipe();
+    for(let a of this.list){
+      for(let b of a){
+        console.log(b);
+      }
+      console.log("-----------");
+    }
 }
 }

@@ -1,0 +1,14 @@
+.lists{
+  display: flex;
+  flex-direction: row;
+
+}
+.two{
+  border: 5px dotted black;
+  margin-left: 5px;
+  padding: 5px;
+}
+.one{
+  border: 5px dotted black;
+  padding: 5px;
+}
