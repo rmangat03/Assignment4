@@ -6,11 +6,11 @@
     <th>Quantity</th>
     <th>Instrctions</th>
   </tr>
-  <tr *ngFor="let recipe of userRecipeObj; let i = index" >
-    <td (click)="selectRecipe(recipe.NAME)" class="{{recipe.NAME == selectedRecipe? 'select':'rname'}} ">{{recipe.NAME}}</td>
-    <td><ul><li *ngFor="let ing of recipe.INGRIDENTS" (click) = "selectIng(ing,i)" class="{{ing.name == selectedIng? 'ingselect':'iname'}} out">{{ing.name}}</li></ul></td>
-    <td><ul><li *ngFor="let ing of recipe.INGRIDENTS" (click) = "selectQuantity(ing)" class="{{ing.quantity == selectedQn? 'qnselect':'qname'}}">{{ing.quantity}}</li></ul></td>
-    <td (click)="selectInstruction(recipe.INSTRUCTIONS[0])" class="{{recipe.INSTRUCTIONS[0] == selectedInstruction? 'selectInst':'insname'}} ">{{recipe.INSTRUCTIONS[0]}}</td>
+  <tr *ngFor="let recipe of this.service.recipe; let i = index" >
+    <td (click)="selectRecipe(recipe)" class="{{recipe == this.service.selectedRecipe? 'select':'rname'}}">{{recipe.NAME}}</td>
+    <td><ul><li *ngFor="let ing of recipe.INGRIDENTS" (click) = "selectIng(ing)" class="{{ing == this.service.selectedIngrident? 'ingselect':'iname'}}">{{ing.name}}</li></ul></td>
+    <td><ul><li *ngFor="let ing of recipe.INGRIDENTS" (click) = "selectQuantity(ing)" class="{{ing == this.service.selectedQuantity? 'qnselect':'qname'}}">{{ing.quantity}}</li></ul></td>
+    <td (click)="selectInstruction(recipe.INSTRUCTIONS[0])" class="{{recipe.INSTRUCTIONS[0] == this.service.selectedInstruction? 'selectInst':'insname'}} ">{{recipe.INSTRUCTIONS[0]}}</td>
   </tr>
 </table>
 <input type="text" class="rnamein" placeholder="Add or Delete Recipe" [(ngModel)]="userRecipeNameInput">

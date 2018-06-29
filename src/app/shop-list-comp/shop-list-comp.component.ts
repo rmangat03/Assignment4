@@ -9,7 +9,7 @@ import { Recipe } from '../Recipe.class';
 })
 export class ShopListCompComponent implements OnInit {
 
-  constructor(public service: recipeManagement) { }
+  constructor(private service: recipeManagement) { }
 
     list: string[][] = [[],[]];
 
@@ -18,11 +18,5 @@ export class ShopListCompComponent implements OnInit {
 
   fetchRecipe(){
     this.list = this.service.checkRecipe();
-    for(let a of this.list){
-      for(let b of a){
-        console.log(b);
-      }
-      console.log("-----------");
-    }
 }
 }

@@ -9,35 +9,29 @@ import { recipeManagement } from '../recipeManagement.service';
   styleUrls: ['./recipe-comp.component.css']
 })
 export class RecipeCompComponent implements OnInit {
-  userRecipeObj: Recipe[] = [];
-  selectedRecipe = null
-  selectedIng = null;
-  selectedQn = null;
-  selectedInstruction: string = null;
   userRecipeNameInput: string = "";
   addOrDeleteIng: string = "";
   quantityIng: number = 0;
   userSelectedIng: string;
   inst: string = "";
   letter = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
-  recipeServe: recipeManagement;
 
   constructor(private service: recipeManagement) { }
 
   ngOnInit() {
-    // let recipe1 =new Recipe();
-    // recipe1.setName("mango pie");
-    // recipe1.addItem(new Item("mango",9));
-    // recipe1.addInstruction("Peel it. shake and mix it and enjoy");
-    // this.userRecipeObj.push(recipe1);
+    let recipe1 =new Recipe();
+    recipe1.setName("mango pie");
+    recipe1.addItem(new Item("mango",9));
+    recipe1.addInstruction("Peel it. shake and mix it and enjoy");
+    this.service.recipe.push(recipe1);
   }
 
   addRecipe(){
-    for(let recipe of this.userRecipeObj){
+    for(let recipe of this.service.recipe){
     if(recipe.NAME == this.userRecipeNameInput && this.addOrDeleteIng.match(this.letter) != null && this.quantityIng > 0 && this.userRecipeNameInput.match(this.letter) !== null){
 
-      this.selectedQn = null;
-      this.selectedIng = null;
+      this.service.selectedQuantity = null;
+      this.service.selectedIngrident = null;
 
       recipe.addItem(new Item(this.addOrDeleteIng, this.quantityIng));
 
@@ -45,11 +39,11 @@ export class RecipeCompComponent implements OnInit {
       return;
   }
   }
-  if((this.addOrDeleteIng.match(this.letter) != null && this.quantityIng > 0) || this.userRecipeObj.length == 0){
-    this.selectedQn = null;
-    this.selectedIng = null;
-    this.selectedRecipe = null;
-    this.selectedInstruction = null;
+  if((this.addOrDeleteIng.match(this.letter) != null && this.quantityIng > 0) || this.service.recipe.length == 0){
+    this.service.selectedQuantity = null;
+    this.service.selectedIngrident = null;
+    this.service.selectedRecipe = null;
+    this.service.selectedInstruction = null;
 
 
 
@@ -58,52 +52,45 @@ export class RecipeCompComponent implements OnInit {
     recipeO.setName(this.userRecipeNameInput);
     recipeO.addItem(new Item(this.addOrDeleteIng, this.quantityIng));
     recipeO.addInstruction(this.inst);
-    this.userRecipeObj.push(recipeO);
+    this.service.recipe.push(recipeO);
 
   }
-    this.service.addRecipe(this.userRecipeObj);
   }
 
   deleteRecipe(){
-    if(this.selectedRecipe !== null){
-    for(let recipe of this.userRecipeObj){
-      if(recipe.NAME === this.selectedRecipe){
-        this.userRecipeObj.splice(this.userRecipeObj.indexOf(recipe),1);
+    if(this.service.selectedRecipe !== null){
+    for(let recipe of this.service.recipe){
+      if(recipe.NAME === this.service.selectedRecipe.NAME){
+        this.service.recipe.splice(this.service.recipe.indexOf(recipe),1);
       }
     }
     }
-    this.service.addRecipe(this.userRecipeObj);
 
   }
 
 
   selectRecipe(selected){
-    this.selectedRecipe = selected;
-    for(let recipe of this.userRecipeObj){
-      if(recipe.NAME === selected){
-        this.service.selectRecipe(recipe);
-      }
-    }
+    this.service.selectRecipe(selected);
   }
 
-  selectIng(recipe){
-    this.selectedIng = recipe.name;
+  selectIng(item){
+    this.service.selectIngrident(item);
   }
 
-  selectQuantity(recipe){
-    this.selectedQn = recipe.quantity;
+  selectQuantity(item){
+    this.service.selectQuantity(item);
   }
 
   selectInstruction(inst){
-    this.selectedInstruction = inst;
+    this.service.selectInstruction(inst);
   }
 
 
   editRecipe(){
     let check = false;
-    for(let recipe of this.userRecipeObj){
-      if(recipe.NAME === this.selectedRecipe && this.userRecipeNameInput.match(this.letter) !== null){
-        for(let recipeCheck of this.userRecipeObj){
+    for(let recipe of this.service.recipe){
+      if(this.service.selectedRecipe != null && recipe.NAME === this.service.selectedRecipe.NAME && this.userRecipeNameInput.match(this.letter) !== null){
+        for(let recipeCheck of this.service.recipe){
           if(recipeCheck.NAME === this.userRecipeNameInput){
             check = true;
           }
@@ -113,24 +100,25 @@ export class RecipeCompComponent implements OnInit {
         check = false;
       }
     }
-      if(recipe.INSTRUCTIONS[0] === this.selectedInstruction && this.inst != ""){
+      if(recipe.INSTRUCTIONS[0] === this.service.selectedInstruction && this.inst != ""){
         recipe.INSTRUCTIONS[0] = this.inst;
       }
+      alert("IN");
       for(let recipeIng of recipe.INGRIDENTS){
-        if(recipeIng.name === this.selectedIng && this.addOrDeleteIng.match(this.letter) != null){
+
+        if(this.service.selectedIngrident != null && recipeIng.name === this.service.selectedIngrident.name && this.addOrDeleteIng.match(this.letter) != null){
           recipeIng.name = this.addOrDeleteIng;
         }
-        if(recipeIng.quantity === this.selectedQn && this.quantityIng > 0){
+        if(this.service.selectedQuantity!= null && recipeIng === this.service.selectedQuantity && this.quantityIng > 0){
           recipeIng.quantity = this.quantityIng;
         }
     }
 
   }
-    this.selectedQn = null;
-    this.selectedIng = null;
-    this.selectedRecipe = null;
-    this.selectedInstruction = null;
-    this.service.addRecipe(this.userRecipeObj);
+    this.service.selectedQuantity = null;
+    this.service.selectedIngrident = null;
+    this.service.selectedRecipe = null;
+    this.service.selectedInstruction = null;
 
 
 }
