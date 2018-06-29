@@ -13,9 +13,11 @@ selectedQuantity: Item = null;
 selectedInstruction: string = null
 fridgeItems: Array<Item>;
 fridge: Fridge = new Fridge();
+list: string[][] = [[],[]];
 
 selectRecipe(recipeSelected){
   this.selectedRecipe = recipeSelected;
+  this.checkRecipe();
 }
 selectIngrident(item){
   this.selectedIngrident = item;
@@ -30,7 +32,7 @@ addItemsToFridge(item){
   this.fridgeItems = item;
   this.fridge.CONTENTS = this.fridgeItems;
 }
-checkRecipe(): string[][]{
-  return this.fridge.checkRecipe(this.selectedRecipe);
+checkRecipe(){
+  this.list = this.fridge.checkRecipe(this.selectedRecipe);
 }
 }

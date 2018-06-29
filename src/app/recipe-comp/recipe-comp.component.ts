@@ -19,21 +19,22 @@ export class RecipeCompComponent implements OnInit {
   constructor(private service: recipeManagement) { }
 
   ngOnInit() {
-    let recipe1 =new Recipe();
-    recipe1.setName("mango pie");
-    recipe1.addItem(new Item("mango",9));
-    recipe1.addInstruction("Peel it. shake and mix it and enjoy");
-    this.service.recipe.push(recipe1);
+    // let recipe1 =new Recipe();
+    // recipe1.setName("mango pie");
+    // recipe1.addItem(new Item("mango",9));
+    // recipe1.addInstruction("Peel it. shake and mix it and enjoy");
+    // this.service.recipe.push(recipe1);
   }
 
   addRecipe(){
     for(let recipe of this.service.recipe){
-    if(recipe.NAME == this.userRecipeNameInput && this.addOrDeleteIng.match(this.letter) != null && this.quantityIng > 0 && this.userRecipeNameInput.match(this.letter) !== null){
+    if(recipe.NAME == this.userRecipeNameInput && this.addOrDeleteIng.match(this.letter) !== null && this.quantityIng > 0 && this.userRecipeNameInput.match(this.letter) !== null){
 
       this.service.selectedQuantity = null;
       this.service.selectedIngrident = null;
 
       recipe.addItem(new Item(this.addOrDeleteIng, this.quantityIng));
+      this.service.checkRecipe();
 
 
       return;
@@ -42,7 +43,6 @@ export class RecipeCompComponent implements OnInit {
   if((this.addOrDeleteIng.match(this.letter) != null && this.quantityIng > 0) || this.service.recipe.length == 0){
     this.service.selectedQuantity = null;
     this.service.selectedIngrident = null;
-    this.service.selectedRecipe = null;
     this.service.selectedInstruction = null;
 
 
@@ -103,7 +103,6 @@ export class RecipeCompComponent implements OnInit {
       if(recipe.INSTRUCTIONS[0] === this.service.selectedInstruction && this.inst != ""){
         recipe.INSTRUCTIONS[0] = this.inst;
       }
-      alert("IN");
       for(let recipeIng of recipe.INGRIDENTS){
 
         if(this.service.selectedIngrident != null && recipeIng.name === this.service.selectedIngrident.name && this.addOrDeleteIng.match(this.letter) != null){

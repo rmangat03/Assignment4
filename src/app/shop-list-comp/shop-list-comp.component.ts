@@ -11,12 +11,8 @@ export class ShopListCompComponent implements OnInit {
 
   constructor(private service: recipeManagement) { }
 
-    list: string[][] = [[],[]];
 
   ngOnInit() {
   }
 
-  fetchRecipe(){
-    this.list = this.service.checkRecipe();
-}
 }
